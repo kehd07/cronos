@@ -208,17 +208,6 @@ type UserMutationResult {
   Meta: MutationResultInfo!
 }
 
-type UserMutationResultMulti {
-  Users: [User]
-  success: Boolean!
-  Meta: MutationResultInfo!
-}
-
-type UserBulkMutationResult {
-  success: Boolean!
-  Meta: MutationResultInfo!
-}
-
 input UserInput {
   _id: String
   name: String
@@ -353,16 +342,6 @@ type Mutation {
 
   updateReport(_id: String, Updates: ReportMutationInput): ReportMutationResult
 
-  updateReports(
-    _ids: [String]
-    Updates: ReportMutationInput
-  ): ReportMutationResultMulti
-
-  updateReportsBulk(
-    Match: ReportFilters
-    Updates: ReportMutationInput
-  ): ReportBulkMutationResult
-
   deleteReport(_id: String): DeletionResultInfo
 
   createTask(Task: TaskInput): TaskMutationResult
@@ -384,16 +363,6 @@ type Mutation {
   createUser(User: UserInput): UserMutationResult
 
   updateUser(_id: String, Updates: UserMutationInput): UserMutationResult
-
-  updateUsers(
-    _ids: [String]
-    Updates: UserMutationInput
-  ): UserMutationResultMulti
-
-  updateUsersBulk(
-    Match: UserFilters
-    Updates: UserMutationInput
-  ): UserBulkMutationResult
 
   deleteUser(_id: String): DeletionResultInfo
 }

@@ -24,5 +24,7 @@ app.use(
       rootValue: root,
     }),
 );
-app.listen(3000);
-console.log('Server ready at http://localhost:3000/graphql');
+const port = 3000;
+app.listen(port, function() {
+  console.log('Server ready at http://localhost:' + port + '/graphql');
+});

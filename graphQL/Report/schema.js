@@ -23,23 +23,10 @@ export const type = `
     Meta: MutationResultInfo!
   }
 
-  type ReportMutationResultMulti {
-    Reports: [Report]
-    success: Boolean!
-    Meta: MutationResultInfo!
-  }
-
-  type ReportBulkMutationResult {
-    success: Boolean!
-    Meta: MutationResultInfo!
-  }
-
   input ReportInput {
-    _id: String
     userId: String
     weekNumer: Int
     year: Int
-    tasks: TaskInput
   }
 
   input ReportMutationInput {
@@ -100,16 +87,6 @@ export const mutation = `
     _id: String,
     Updates: ReportMutationInput
   ): ReportMutationResult
-
-  updateReports (
-    _ids: [String],
-    Updates: ReportMutationInput
-  ): ReportMutationResultMulti
-
-  updateReportsBulk (
-    Match: ReportFilters,
-    Updates: ReportMutationInput
-  ): ReportBulkMutationResult
 
   deleteReport (
     _id: String

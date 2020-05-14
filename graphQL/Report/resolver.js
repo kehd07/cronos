@@ -183,45 +183,6 @@ export default {
         return resolverHelpers.mutationSuccessResult({Report: result, transaction, elapsedTime: 0});
       });
     },
-    async updateReports(root, args, context, ast) {
-      const gqlPacket = {root, args, context, ast, hooksObj};
-      const {db, session, transaction} = await resolverHelpers.startDbMutation(gqlPacket, 'Report', ReportMetadata, {
-        update: true,
-      });
-      return await resolverHelpers.runMutation(session, transaction, async () => {
-        const {$match, $project} = decontructGraphqlQuery({_id_in: args._ids}, ast, ReportMetadata, 'Reports');
-        const updates = await getUpdateObject(args.Updates || {}, ReportMetadata, {...gqlPacket, db, session});
-
-        if ((await runHook('beforeUpdate', $match, updates, {...gqlPacket, db, session})) === false) {
-          return resolverHelpers.mutationCancelled({transaction});
-        }
-        await setUpOneToManyRelationshipsForUpdate(args._ids, args, ReportMetadata, {...gqlPacket, db, session});
-        await dbHelpers.runUpdate(db, 'reports', $match, updates, {session});
-        await runHook('afterUpdate', $match, updates, {...gqlPacket, db, session});
-        await resolverHelpers.mutationComplete(session, transaction);
-
-        const result = $project ? await loadReports(db, [{$match}, {$project}], root, args, context, ast) : null;
-        return resolverHelpers.mutationSuccessResult({Reports: result, transaction, elapsedTime: 0});
-      });
-    },
-    async updateReportsBulk(root, args, context, ast) {
-      const gqlPacket = {root, args, context, ast, hooksObj};
-      const {db, session, transaction} = await resolverHelpers.startDbMutation(gqlPacket, 'Report', ReportMetadata, {
-        update: true,
-      });
-      return await resolverHelpers.runMutation(session, transaction, async () => {
-        const {$match} = decontructGraphqlQuery(args.Match, ast, ReportMetadata);
-        const updates = await getUpdateObject(args.Updates || {}, ReportMetadata, {...gqlPacket, db, session});
-
-        if ((await runHook('beforeUpdate', $match, updates, {...gqlPacket, db, session})) === false) {
-          return resolverHelpers.mutationCancelled({transaction});
-        }
-        await dbHelpers.runUpdate(db, 'reports', $match, updates, {session});
-        await runHook('afterUpdate', $match, updates, {...gqlPacket, db, session});
-
-        return await resolverHelpers.finishSuccessfulMutation(session, transaction);
-      });
-    },
     async deleteReport(root, args, context, ast) {
       if (!args._id) {
         throw 'No _id sent';

@@ -22,22 +22,9 @@ export const type = `
     Meta: MutationResultInfo!
   }
 
-  type UserMutationResultMulti {
-    Users: [User]
-    success: Boolean!
-    Meta: MutationResultInfo!
-  }
-
-  type UserBulkMutationResult {
-    success: Boolean!
-    Meta: MutationResultInfo!
-  }
-
   input UserInput {
-    _id: String
     name: String
     isLead: Boolean
-    reports: ReportInput
   }
 
   input UserMutationInput {
@@ -84,16 +71,6 @@ export const mutation = `
     _id: String,
     Updates: UserMutationInput
   ): UserMutationResult
-
-  updateUsers (
-    _ids: [String],
-    Updates: UserMutationInput
-  ): UserMutationResultMulti
-
-  updateUsersBulk (
-    Match: UserFilters,
-    Updates: UserMutationInput
-  ): UserBulkMutationResult
 
   deleteUser (
     _id: String

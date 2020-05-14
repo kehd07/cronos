@@ -33,13 +33,11 @@ export const type = `
   }
 
   input TaskInput {
-    _id: String
     reportId: String
     isDone: Boolean
   }
 
   input TaskMutationInput {
-    reportId: String
     isDone: Boolean
   }
 
