@@ -4,8 +4,24 @@
   "description": "Backend for reporting system",
   "main": "index.js",
   "scripts": {
+    "start": "nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Luis",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1",
+    "express-graphql": "^0.9.0",
+    "graphql": "^15.0.0",
+    "mongo-graphql-starter": "^0.11.1",
+    "mongodb": "^3.5.7",
+    "nodemon": "^2.0.4"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^2.33.0",
+    "@typescript-eslint/parser": "^2.33.0",
+    "eslint": "^7.0.0",
+    "eslint-config-google": "^0.14.0",
+    "typescript": "^3.9.2"
+  }
 }
