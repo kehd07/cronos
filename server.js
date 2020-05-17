@@ -6,6 +6,7 @@ import {makeExecutableSchema} from 'graphql-tools';
 import express from 'express';
 
 const app = express();
+const cors = require('cors');
 
 const mongoUrl = 'mongodb://localhost:27017';
 const options = {useNewUrlParser: true, useUnifiedTopology: true};
@@ -18,12 +19,14 @@ const executableSchema = makeExecutableSchema({typeDefs: schema, resolvers});
 
 app.use(
     '/graphql',
+    cors(),
     expressGraphql({
       schema: executableSchema,
       graphiql: true,
       rootValue: root,
     }),
 );
+
 const port = 3000;
 app.listen(port, function() {
   console.log('Server ready at http://localhost:' + port + '/graphql');
